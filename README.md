@@ -5,8 +5,11 @@
 In our example, a subset of worldpop data does not quite define land/sea in the same way as a standard land/sea mask. The goal is to treat 4 different interactions between these surfaces in the following way:
 
 **Data in Worldpop, NA in mask**: Redistribute counts from a given Worldpop pixel to other data pixels as defined by the mask.
+
 **NA in Worldpop, data in mask**: Subtract counts from neighboring Worldpop data pixels to fill missing pixel in WorldPop.
+
 **Data in Worldpop, data in mask**: Do not alter counts, unless adding/subtracting values to fulfill needs for a neighboring pixel
+
 **NA in WorldPop, NA in mask**: No change
 
 Counts will be altered by [math stuff]...
