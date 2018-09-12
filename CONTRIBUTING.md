@@ -16,6 +16,10 @@ To deactivate the environment run
 
     source deactivate
 
+To update your conda environment with a newer environment file:
+
+    conda env update -f environment.yml
+
 # Contributing
 
 Our project uses a branching [work
