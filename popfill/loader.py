@@ -1,11 +1,27 @@
+from collections import namedtuple
+
 import numpy as np
+import rasterio
 
-class DummyLoader(object):
-    def __init__(this, size_x, size_y):
-        this._size_x = size_x
-        this._size_y = size_y
+NPRaster = namedtuple('NPRaster', ['data', 'profile'])
 
-    def load(this, _=""):
-        mask = np.random.randint(0, 2, (this._size_x, this._size_y))
-        counts = np.random.randint(0, 100, (this._size_x, this._size_y))
-        return mask, counts
+class PopulationLoader(object):
+
+    def read_file(this, file_path):
+        with rasterio.open(file_path) as mask:
+            profile = mask.profile.copy()
+            data = mask.read(1)
+        return profile, data
+
+    def load(this, mask_path, pop_path):
+        mask_profile, mask_np = this.read_file(mask_path)
+        mask_np[mask_np == mask_profile['nodata']] = 0
+
+        mask_np = mask_np.astype(bool)
+        mask = NPRaster(mask_np, mask_profile)
+
+        pop_profile, pop_np = this.read_file(pop_path)
+        pop_np[pop_np == pop_profile['nodata']] = np.NaN;
+        pop = NPRaster(pop_np, pop_profile)
+
+        return mask, pop
