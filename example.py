@@ -10,7 +10,7 @@ population_file = "data/pop_clip_simple.tif"
 loader = popfill.loader.PopulationLoader()
 mask, population = loader.load(mask_file, population_file)
 
-kernel = popfill.kernel.Basic()
-new_counts = kernel.fill(mask.data, population.data)
+kernel = popfill.kernel.Basic(mask.data, population.data)
+new_counts = kernel.fill()
 
 print(new_counts)
