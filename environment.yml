@@ -9,3 +9,4 @@ dependencies:
     - matplotlib
     - gdal
     - rasterio
+    - scipy
