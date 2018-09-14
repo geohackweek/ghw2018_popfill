@@ -25,7 +25,7 @@ class Basic(object):
         volume_to_move = this._counts[to_remove].sum()
 
         new_counts = this._counts.copy()
-        new_counts[to_add] += volume_to_move / np.sum(to_add)
-        new_counts[to_remove] = 0
+        new_counts[to_add] = volume_to_move / np.sum(to_add)
+        new_counts[to_remove] = np.nan
 
         return new_counts
